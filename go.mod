@@ -1,4 +1,4 @@
-module git.evry.cloud/consulting-stavanger/go-zap-logging
+module git.evry.cloud/consulting-stavanger/go-zap-sd
 
 require (
 	github.com/blendle/zapdriver v1.1.4
