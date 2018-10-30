@@ -26,6 +26,6 @@ func (h *ZapLogger) ServeHTTP(rw http.ResponseWriter, r *http.Request, next http
 
 	sdReq := zapdriver.NewHTTP(r, nil)
 	sdReq.Status = negroniRw.Status()
-	sdReq.Latency = fmt.Sprintf("%ds", time.Since(start))
+	sdReq.Latency = fmt.Sprintf("%fs", time.Since(start).Seconds())
 	zap.S().Infow("Request ", zapdriver.HTTP(sdReq))
 }
