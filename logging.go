@@ -4,10 +4,8 @@ import (
 	"os"
 	"path/filepath"
 
-	zapStackdriver "github.com/tommy351/zap-stackdriver"
-
+	"github.com/blendle/zapdriver"
 	"go.uber.org/zap"
-	"go.uber.org/zap/zapcore"
 )
 
 func serviceNameFromBin() string {
@@ -17,29 +15,22 @@ func serviceNameFromBin() string {
 }
 
 // SetupZapSDLogging - Setup logging with some defaults for GCP
-func SetupZapSDLogging() {
-	config := &zap.Config{
-		Level:            zap.NewAtomicLevelAt(zapcore.DebugLevel),
-		Encoding:         "json",
-		EncoderConfig:    zapStackdriver.EncoderConfig,
-		OutputPaths:      []string{"stdout"},
-		ErrorOutputPaths: []string{"stderr"},
-	}
+func SetupZapSDLogging(devel bool) {
+	var (
+		logger *zap.Logger
+		err    error
+	)
 
-	logger, err := config.Build(zap.WrapCore(func(core zapcore.Core) zapcore.Core {
-		return &zapStackdriver.Core{
-			Core: core,
-		}
-	}), zap.Fields(
-		zapStackdriver.LogServiceContext(&zapStackdriver.ServiceContext{
-			Service: serviceNameFromBin(),
-			Version: "master",
-		}),
-	))
+	if devel {
+		logger, err = zapdriver.NewDevelopment()
+	} else {
+		logger, err = zapdriver.NewProduction()
+	}
 
 	zap.ReplaceGlobals(logger)
 
 	if err != nil {
 		panic(err)
 	}
+
 }

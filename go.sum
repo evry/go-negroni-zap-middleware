@@ -1,3 +1,5 @@
+github.com/blendle/zapdriver v1.1.4 h1:7yQ2mj5rigEhR+jNxWUpb23LivQrOO6J/v+yB7RAFl4=
+github.com/blendle/zapdriver v1.1.4/go.mod h1:E6/B7Fu2qFuScQ/smemn7qnhIDKKf9C/Xdv/jAA4TA0=
 github.com/tommy351/zap-stackdriver v0.1.3 h1:luDjvQeLLYFwuTdlPsKl6w68aJwrhUKReV2wa0iLrIc=
 github.com/tommy351/zap-stackdriver v0.1.3/go.mod h1:02SLb1eIv1QhUBnZZW6VBY9jlHYzekvxsSRXcEy2gRA=
 github.com/urfave/negroni v1.0.0 h1:kIimOitoypq34K7TG7DUaJ9kq/N4Ofuwi1sjz0KipXc=

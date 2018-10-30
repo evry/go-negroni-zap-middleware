@@ -2,10 +2,8 @@ package negroni
 
 import (
 	"net/http"
-	"time"
 
-	zapStackdriver "github.com/tommy351/zap-stackdriver"
-	"github.com/urfave/negroni"
+	zapdriver "github.com/blendle/zapdriver"
 	"go.uber.org/zap"
 )
 
@@ -18,19 +16,9 @@ func NewZapSDLogger() *ZapLogger {
 }
 
 func (h *ZapLogger) ServeHTTP(rw http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
-	start := time.Now()
-
 	next(rw, r)
-	res := rw.(negroni.ResponseWriter)
 
-	sdReq := &zapStackdriver.HTTPRequest{
-		Method:             r.Method,
-		Referrer:           r.Referer(),
-		RemoteIP:           r.RemoteAddr,
-		ResponseStatusCode: res.Status(),
-		URL:                r.URL.Path,
-		UserAgent:          r.UserAgent(),
-	}
+	sdReq := zapdriver.NewHTTP(r, r.Response)
 
-	zap.S().Infow("Request ", zapStackdriver.LogHTTPRequest(sdReq), zap.Duration("Duration", time.Since(start)))
+	zap.S().Infow("Request ", sdReq)
 }

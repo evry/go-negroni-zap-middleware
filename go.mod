@@ -1,6 +1,7 @@
 module git.evry.cloud/consulting-stavanger/go-zap-logging
 
 require (
+	github.com/blendle/zapdriver v1.1.4
 	github.com/tommy351/zap-stackdriver v0.1.3
 	github.com/urfave/negroni v1.0.0
 	go.uber.org/atomic v1.3.2 // indirect
