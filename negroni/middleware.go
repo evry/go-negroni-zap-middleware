@@ -20,5 +20,5 @@ func (h *ZapLogger) ServeHTTP(rw http.ResponseWriter, r *http.Request, next http
 
 	sdReq := zapdriver.NewHTTP(r, r.Response)
 
-	zap.S().Infow("Request ", sdReq)
+	zap.S().Infow("Request ", zapdriver.HTTP(sdReq))
 }
